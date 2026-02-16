@@ -55,6 +55,12 @@ components:
           type: string
           example: "homeoffice"
 
+    Attachment:
+      type: object
+      properties:
+        url:
+          type: string
+
     # --- Users ---
     User:
       type: object
@@ -407,7 +413,8 @@ components:
                 $ref: '#/components/schemas/Tag'
         attachments:
           type: array
-          items: {} # Undefined in doc
+          items:
+            $ref: '#/components/schemas/Attachment'
         recurrence_id:
           anyOf:
             - type: integer
