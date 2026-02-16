@@ -392,14 +392,19 @@ components:
           anyOf:
             - type: integer
             - type: "null"
+        account_type:
+          type: string
+          enum: ["Account", "CreditCard"]
         created_at:
           $ref: '#/components/schemas/DateTimeString'
         updated_at:
           $ref: '#/components/schemas/DateTimeString'
         tags:
-          type: array
-          items:
-            $ref: '#/components/schemas/Tag'
+          anyOf:
+            - type: string
+            - type: array
+              items:
+                $ref: '#/components/schemas/Tag'
         attachments:
           type: array
           items: {} # Undefined in doc
