@@ -1,10 +1,19 @@
 import yaml
 import httpx
 import os
+import logging
 from fastmcp import FastMCP
 from dotenv import load_dotenv
 
 load_dotenv()
+
+# Configuração de Logs
+log_level = os.environ.get("LOG_LEVEL", "INFO").upper()
+logging.basicConfig(
+    level=log_level,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger("mcp_organizze")
 
 # Carregar especificação OpenAPI usando caminho relativo
 try:
@@ -31,6 +40,11 @@ if not email or not api_key:
     import sys
     print("AVISO: Variáveis de ambiente ORGANIZZE_EMAIL e ORGANIZZE_API_KEY não encontradas.", file=sys.stderr)
 
+async def log_response(response: httpx.Response):
+    if logger.isEnabledFor(logging.DEBUG) or os.environ.get("DEBUG_RESPONSE") == "true":
+        await response.aread()
+        logger.info(f"Response from {response.url}: {response.text}")
+
 client = httpx.AsyncClient(
     base_url="https://api.organizze.com.br/rest/v2",
     auth=(email, api_key) if email and api_key else None,
@@ -38,7 +52,8 @@ client = httpx.AsyncClient(
         "User-Agent": user_agent_custom,
         "Content-Type": "application/json"
     },
-    timeout=30.0
+    timeout=30.0,
+    event_hooks={'response': [log_response]}
 )
 
 mcp = FastMCP.from_openapi(
