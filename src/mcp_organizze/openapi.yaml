@@ -88,9 +88,22 @@ components:
           type: string
           example: "Bradesco CC"
         description:
-          type: string
-          nullable: true
+          anyOf:
+            - type: string
+            - type: "null"
           example: "Conta principal"
+        institution_id:
+          type: string
+          example: "default"
+        institution_name:
+          anyOf:
+            - type: string
+            - type: "null"
+          example: "Carteira Samuel"
+        kind:
+          anyOf:
+            - type: string
+            - type: "null"
         archived:
           type: boolean
           example: false
@@ -134,9 +147,22 @@ components:
           type: string
           example: "438b83"
         parent_id:
-          type: integer
-          nullable: true
+          type: [integer, "null"]
           example: null
+        group_id:
+          type: [string, "null"]
+        fixed:
+          type: boolean
+        essential:
+          type: boolean
+        default:
+          type: boolean
+        uuid:
+          type: string
+        kind:
+          type: string
+        archived:
+          type: boolean
     
     CategoryInput:
       type: object
@@ -177,7 +203,7 @@ components:
     # --- Credit Cards ---
     CreditCardNetwork:
       type: string
-      enum: [visa, mastercard, amex, elo, hipercard, others]
+      enum: [visa, mastercard, amex, elo, hipercard, others, default]
       # 'others' inferred
     
     CreditCard:
@@ -190,8 +216,9 @@ components:
           type: string
           example: "Visa Exclusive"
         description:
-          type: string
-          nullable: true
+          anyOf:
+            - type: string
+            - type: "null"
         card_network:
           $ref: '#/components/schemas/CreditCardNetwork'
         closing_day:
@@ -202,9 +229,16 @@ components:
           example: 17
         limit_cents:
           $ref: '#/components/schemas/PriceCents'
-        kind:
+        type:
           type: string
-          default: "credit_card"
+        institution_id:
+          anyOf:
+            - type: string
+            - type: "null"
+        institution_name:
+          anyOf:
+            - type: string
+            - type: "null"
         archived:
           type: boolean
         default:
@@ -311,31 +345,39 @@ components:
         category_id:
           type: integer
         contact_id:
-          type: integer
-          nullable: true
+          anyOf:
+            - type: integer
+            - type: "null"
         notes:
-          type: string
-          nullable: true
+          anyOf:
+            - type: string
+            - type: "null"
         attachments_count:
           type: integer
         credit_card_id:
-          type: integer
-          nullable: true
+          anyOf:
+            - type: integer
+            - type: "null"
         credit_card_invoice_id:
-          type: integer
-          nullable: true
+          anyOf:
+            - type: integer
+            - type: "null"
         paid_credit_card_id:
-          type: integer
-          nullable: true
+          anyOf:
+            - type: integer
+            - type: "null"
         paid_credit_card_invoice_id:
-          type: integer
-          nullable: true
+          anyOf:
+            - type: integer
+            - type: "null"
         oposite_transaction_id:
-          type: integer
-          nullable: true
+          anyOf:
+            - type: integer
+            - type: "null"
         oposite_account_id:
-          type: integer
-          nullable: true
+          anyOf:
+            - type: integer
+            - type: "null"
         created_at:
           $ref: '#/components/schemas/DateTimeString'
         updated_at:
@@ -348,8 +390,9 @@ components:
           type: array
           items: {} # Undefined in doc
         recurrence_id:
-          type: integer
-          nullable: true
+          anyOf:
+            - type: integer
+            - type: "null"
 
     TransactionInput:
       type: object
