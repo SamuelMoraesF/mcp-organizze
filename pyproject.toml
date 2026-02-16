@@ -1,0 +1,27 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "mcp-organizze"
+version = "0.1.0"
+description = "Servidor MCP para acessar o gestor financeiro Organizze"
+readme = "README.md"
+authors = [
+    { name = "Samuel Moraes", email = "samuel@samuelmoraes.com" }
+]
+license = { file = "LICENSE" }
+requires-python = ">=3.10"
+dependencies = [
+    "fastmcp~=2.14.5",
+    "httpx~=0.28.1",
+    "PyYAML~=6.0.3",
+    "python-dotenv~=1.2.1",
+    "uvicorn~=0.40.0"
+]
+
+[project.scripts]
+mcp-organizze = "mcp_organizze.__main__:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/mcp_organizze"]
