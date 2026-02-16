@@ -116,6 +116,9 @@ components:
           example: true
         type:
           $ref: '#/components/schemas/AccountType'
+        balance:
+          type: string
+          example: "R$ 0,00"
 
     AccountInput:
       type: object
@@ -182,6 +185,9 @@ components:
     Budget:
       type: object
       properties:
+        id:
+          type: integer
+          example: 24595025
         amount_in_cents:
           $ref: '#/components/schemas/PriceCents'
         category_id:
@@ -286,6 +292,14 @@ components:
           $ref: '#/components/schemas/PriceCents'
         credit_card_id:
           type: integer
+        transactions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Transaction'
+        payments:
+          type: array
+          items:
+            $ref: '#/components/schemas/Transaction'
     
     CreditCardInvoiceDetail:
       allOf:
