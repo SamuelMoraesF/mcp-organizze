@@ -438,6 +438,109 @@ components:
     # --- Transfers ---
     Transfer:
         $ref: '#/components/schemas/Transaction'
+
+    # --- Balances ---
+    BalanceDetail:
+      type: object
+      properties:
+        date:
+          $ref: '#/components/schemas/DateString'
+        date_range:
+          type: string
+        outcomes:
+          $ref: '#/components/schemas/PriceCents'
+        predicted_outcomes:
+          $ref: '#/components/schemas/PriceCents'
+        incomes:
+          $ref: '#/components/schemas/PriceCents'
+        predicted_incomes:
+          $ref: '#/components/schemas/PriceCents'
+        expenses:
+          $ref: '#/components/schemas/PriceCents'
+        predicted_expenses:
+          $ref: '#/components/schemas/PriceCents'
+        earnings:
+          $ref: '#/components/schemas/PriceCents'
+        predicted_earnings:
+          $ref: '#/components/schemas/PriceCents'
+        initial_amounts:
+          $ref: '#/components/schemas/PriceCents'
+        predicted_initial_amounts:
+          $ref: '#/components/schemas/PriceCents'
+        transferences:
+            $ref: '#/components/schemas/PriceCents'
+        predicted_transferences:
+            $ref: '#/components/schemas/PriceCents'
+        credit_card_invoices_to_pay:
+            $ref: '#/components/schemas/PriceCents'
+        balance:
+          $ref: '#/components/schemas/PriceCents'
+        predicted_balance:
+          $ref: '#/components/schemas/PriceCents'
+        previous_balance:
+          $ref: '#/components/schemas/PriceCents'
+        previous_predicted_balance:
+          $ref: '#/components/schemas/PriceCents'
+        accumulated_outcomes:
+            $ref: '#/components/schemas/PriceCents'
+        accumulated_predicted_outcomes:
+            $ref: '#/components/schemas/PriceCents'
+        accumulated_incomes:
+            $ref: '#/components/schemas/PriceCents'
+        accumulated_predicted_incomes:
+            $ref: '#/components/schemas/PriceCents'
+        accumulated_expenses:
+            $ref: '#/components/schemas/PriceCents'
+        accumulated_predicted_expenses:
+            $ref: '#/components/schemas/PriceCents'
+        accumulated_earnings:
+            $ref: '#/components/schemas/PriceCents'
+        accumulated_predicted_earnings:
+            $ref: '#/components/schemas/PriceCents'
+        accumulated_initial_amounts:
+            $ref: '#/components/schemas/PriceCents'
+        accumulated_predicted_initial_amounts:
+            $ref: '#/components/schemas/PriceCents'
+
+    BalanceReport:
+      type: object
+      properties:
+        previous_balance:
+          $ref: '#/components/schemas/PriceCents'
+        previous_predicted_balance:
+          $ref: '#/components/schemas/PriceCents'
+        balance:
+          $ref: '#/components/schemas/PriceCents'
+        predicted_balance:
+          $ref: '#/components/schemas/PriceCents'
+        outcomes:
+          $ref: '#/components/schemas/PriceCents'
+        predicted_outcomes:
+          $ref: '#/components/schemas/PriceCents'
+        incomes:
+          $ref: '#/components/schemas/PriceCents'
+        predicted_incomes:
+          $ref: '#/components/schemas/PriceCents'
+        expenses:
+          $ref: '#/components/schemas/PriceCents'
+        predicted_expenses:
+          $ref: '#/components/schemas/PriceCents'
+        earnings:
+          $ref: '#/components/schemas/PriceCents'
+        predicted_earnings:
+           $ref: '#/components/schemas/PriceCents'
+        initial_amounts:
+           $ref: '#/components/schemas/PriceCents'
+        predicted_initial_amounts:
+           $ref: '#/components/schemas/PriceCents'
+        result:
+           $ref: '#/components/schemas/PriceCents'
+        predicted_result:
+           $ref: '#/components/schemas/PriceCents'
+        balances:
+          type: array
+          items:
+            $ref: '#/components/schemas/BalanceDetail'
       
     TransferInput:
         type: object
@@ -1122,3 +1225,45 @@ paths:
                       application/json:
                          schema:
                             $ref: '#/components/schemas/Transfer'
+
+  /balances:
+      get:
+          summary: Obter relatório de saldos
+          operationId: getBalances
+          parameters:
+              - name: account_id
+                in: query
+                required: false
+                schema:
+                    type: integer
+                description: O id da conta, se não for enviado o saldo será derivado usando o saldo de todas as contas.
+              - name: start_date
+                in: query
+                required: false
+                schema:
+                    type: string
+                    format: date
+                description: Data de início do período (AAAA-MM-DD), default dia 1 do mês atual.
+              - name: end_date
+                in: query
+                required: false
+                schema:
+                    type: string
+                    format: date
+                description: Data de término do período (AAAA-MM-DD), default último dia do mês atual.
+              - name: periodicity
+                in: query
+                required: false
+                schema:
+                    type: string
+                    enum: [daily, monthly, weekly]
+                    default: daily
+                description: Periodicidade do particionamento (default daily).
+          responses:
+              '200':
+                  description: Relatório de saldos e fluxo de caixa
+                  content:
+                      application/json:
+                          schema:
+                              $ref: '#/components/schemas/BalanceReport'
+
