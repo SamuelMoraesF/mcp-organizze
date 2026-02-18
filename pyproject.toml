@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "mcp-organizze"
-version = "0.1.1"
+version = "0.1.2"
 description = "Servidor MCP para acessar o gestor financeiro Organizze"
 readme = "README.md"
 authors = [
