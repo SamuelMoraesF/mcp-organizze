@@ -1,4 +1,5 @@
 FROM python:3.11-slim-bookworm
+LABEL io.modelcontextprotocol.server.name="io.github.SamuelMoraesF/mcp-organizze"
 
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1

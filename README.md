@@ -90,3 +90,5 @@ python -m mcp_organizze
 - `pyproject.toml`: Configuração de build e dependências.
 - `Dockerfile`: Configuração para containerização.
 - `.github/workflows`: Actions para CI/CD.
+
+<!-- mcp-name: io.github.SamuelMoraesF/mcp-organizze -->

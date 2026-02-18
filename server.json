@@ -1,0 +1,74 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.SamuelMoraesF/mcp-organizze",
+  "description": "Servidor MCP para integração com o gestor financeiro Organizze. Crie transações, consulte saldos e metas.",
+  "repository": {
+    "url": "https://github.com/SamuelMoraesF/mcp-organizze",
+    "source": "github"
+  },
+  "version": "0.1.2",
+  "packages": [
+    {
+      "registryType": "pypi",
+      "identifier": "mcp-organizze",
+      "version": "0.1.2",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "ORGANIZZE_EMAIL",
+          "description": "Email de login da sua conta Organizze",
+          "isRequired": true,
+          "isSecret": false,
+          "format": "string"
+        },
+        {
+          "name": "ORGANIZZE_API_KEY",
+          "description": "Sua chave de API do Organizze",
+          "isRequired": true,
+          "isSecret": true,
+          "format": "string"
+        }
+      ]
+    },
+    {
+      "registryType": "oci",
+      "identifier": "samuelmoraesf/mcp-organizze",
+      "transport": {
+        "type": "streamable-http",
+        "url": "http://{MCP_HOST}:{MCP_PORT}/mcp"
+      },
+      "environmentVariables": [
+        {
+          "name": "ORGANIZZE_EMAIL",
+          "description": "Email de login da sua conta Organizze",
+          "isRequired": true,
+          "isSecret": false,
+          "format": "string"
+        },
+        {
+          "name": "ORGANIZZE_API_KEY",
+          "description": "Sua chave de API do Organizze",
+          "isRequired": true,
+          "isSecret": true,
+          "format": "string"
+        },
+        {
+          "name": "MCP_PORT",
+          "description": "Porta do servidor HTTP",
+          "isRequired": false,
+          "default": "8000",
+          "format": "number"
+        },
+        {
+          "name": "MCP_HOST",
+          "description": "Host do servidor HTTP",
+          "isRequired": false,
+          "default": "0.0.0.0",
+          "format": "string"
+        }
+      ]
+    }
+  ]
+}
