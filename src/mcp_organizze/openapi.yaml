@@ -213,10 +213,18 @@ components:
           example: "0.0"
 
     # --- Credit Cards ---
-    CreditCardNetwork:
+    CreditCardNetworkInput:
       type: string
       enum: [visa, mastercard, amex, elo, hipercard, others, default]
       # 'others' inferred
+
+    CreditCardNetworkOutput:
+      anyOf:
+        - type: string
+        - type: "null"
+      description: |
+        Organizze may return values outside the documented enum, such as
+        "master", and may also return null for some cards.
     
     CreditCard:
       type: object
@@ -232,7 +240,7 @@ components:
             - type: string
             - type: "null"
         card_network:
-          $ref: '#/components/schemas/CreditCardNetwork'
+          $ref: '#/components/schemas/CreditCardNetworkOutput'
         closing_day:
           type: integer
           example: 4
@@ -267,7 +275,7 @@ components:
         name:
           type: string
         card_network:
-          $ref: '#/components/schemas/CreditCardNetwork'
+          $ref: '#/components/schemas/CreditCardNetworkInput'
         due_day:
           type: integer
           description: Dia de vencimento
