@@ -1,3 +1,5 @@
+[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/samuelmoraesf-mcp-organizze-badge.png)](https://mseep.ai/app/samuelmoraesf-mcp-organizze)
+
 # MCP Organizze
 
 Servidor MCP para integração com o gestor financeiro Organizze, compatível com qualquer cliente MCP (Claude Desktop, etc).
